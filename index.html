@@ -1,0 +1,191 @@
+﻿<!DOCTYPE html>
+<html lang="ru" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>TradeOptionPro| Профессиональная торговая аналитика</title>
+    <meta name="description" content="Получите профессиональные торговые сигналы с высокой точностью для валютных пар">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Manrope:wght@400;500;600;700;800&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2310b981'%3E%3Cpath d='M3 3v18h18V3H3zm16 16H5V5h14v14zM11 7h2v2h-2V7zm4 0h2v2h-2V7zm-8 0h2v2H7V7zm8 4h2v2h-2v-2zm-4 0h2v2h-2v-2zm-4 0h2v2H7v-2zm8 4h2v2h-2v-2zm-4 0h2v2h-2v-2zm-4 0h2v2H7v-2z'/%3E%3C/svg%3E">
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <div class="logo">
+                <h1 id="logo-text">TradeOptionPro| Бот Аналитик</h1>
+            </div>
+            <div class="theme-switcher">
+                <button class="theme-btn" data-theme="light" aria-label="Светлая тема">
+                    <svg class="sun-icon" viewBox="0 0 24 24"><path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+                </button>
+                <button class="theme-btn" data-theme="dark" aria-label="Темная тема">
+                    <svg class="moon-icon" viewBox="0 0 24 24"><path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+                </button>
+                <button class="theme-btn" data-theme="crypto" aria-label="Крипто тема">
+                    <svg class="crypto-icon" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                </button>
+            </div>
+            <div class="settings">
+                <div class="settings-header">
+                    <span class="settings-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 18a8 8 0 1 1 0-16 8 8 0 0 1 0 16zm-1-11h2v6h-2zm0 8h2v2h-2z"></path>
+                        </svg>
+                    </span>
+                    <h3>Настройки сигнала</h3>
+                </div>
+                <div class="input-group">
+                    <label id="currency-label">Инструмент</label>
+                    <div class="custom-select">
+                        <div class="select-selected" data-select="currency-pair">EUR/USD</div>
+                        <div class="select-items select-hide" id="currency-pair-items">
+                            <div class="select-item" data-value="EUR/USD">EUR/USD</div>
+                            <div class="select-item" data-value="GBP/USD">GBP/USD</div>
+                            <div class="select-item" data-value="USD/JPY">USD/JPY</div>
+                            <div class="select-item" data-value="USD/CHF">USD/CHF</div>
+                            <div class="select-item" data-value="USD/CAD">USD/CAD</div>
+                            <div class="select-item" data-value="AUD/USD">AUD/USD</div>
+                            <div class="select-item" data-value="NZD/USD">NZD/USD</div>
+                            <div class="select-item" data-value="AUD/NZD">AUD/NZD</div>
+                            <div class="select-item" data-value="GBP/JPY">GBP/JPY</div>
+                            <div class="select-item" data-value="USD/CNH">USD/CNH</div>
+                            <div class="select-item" data-value="EUR/JPY">EUR/JPY</div>
+                            <div class="select-item" data-value="EUR/GBP">EUR/GBP</div>
+                            <div class="select-item" data-value="EUR/CAD">EUR/CAD</div>
+                            <div class="select-item" data-value="GBP/CHF">GBP/CHF</div>
+                            <div class="select-item" data-value="CAD/JPY">CAD/JPY</div>
+                        </div>
+                        <select id="currency-pair" class="hidden-select">
+                            <option>EUR/USD</option>
+                            <option>GBP/USD</option>
+                            <option>USD/JPY</option>
+                            <option>USD/CHF</option>
+                            <option>USD/CAD</option>
+                            <option>AUD/USD</option>
+                            <option>NZD/USD</option>
+                            <option>AUD/NZD</option>
+                            <option>GBP/JPY</option>
+                            <option>USD/CNH</option>
+                            <option>EUR/JPY</option>
+                            <option>EUR/GBP</option>
+                            <option>EUR/CAD</option>
+                            <option>GBP/CHF</option>
+                            <option>CAD/JPY</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label id="timeframe-label">Время</label>
+                    <div class="custom-select">
+                        <div class="select-selected" data-select="timeframe">1 минута</div>
+                        <div class="select-items select-hide" id="timeframe-items">
+                            <div class="select-item" data-value="1 минута">1 минута</div>
+                            <div class="select-item" data-value="2 минуты">2 минуты</div>
+                            <div class="select-item" data-value="3 минуты">3 минуты</div>
+                            <div class="select-item" data-value="4 минуты">4 минуты</div>
+                            <div class="select-item" data-value="5 минут">5 минут</div>
+                        </div>
+                        <select id="timeframe" class="hidden-select">
+                            <option>1 минута</option>
+                            <option>2 минуты</option>
+                            <option>3 минуты</option>
+                            <option>4 минуты</option>
+                            <option>5 минут</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label id="language-label" for="language">Язык</label>
+                    <div class="custom-select">
+                        <div class="select-selected" data-select="language">
+                            <img src="https://flagcdn.com/w20/ru.png" alt="RU" class="flag-icon">
+                            Русский
+                        </div>
+                        <div class="select-items select-hide" id="language-items">
+                            <div class="select-item" data-value="ru">
+                                <img src="https://flagcdn.com/w20/ru.png" alt="RU" class="flag-icon">
+                                Русский
+                            </div>
+                            <div class="select-item" data-value="en">
+                                <img src="https://flagcdn.com/w20/gb.png" alt="EN" class="flag-icon">
+                                English
+                            </div>
+                            <div class="select-item" data-value="uz">
+                                <img src="https://flagcdn.com/w20/uz.png" alt="UZ" class="flag-icon">
+                                O'zbek
+                            </div>
+                            <div class="select-item" data-value="uk">
+                                <img src="https://flagcdn.com/w20/ua.png" alt="UA" class="flag-icon">
+                                Українська
+                            </div>
+                            <div class="select-item" data-value="kz">
+                                <img src="https://flagcdn.com/w20/kz.png" alt="KZ" class="flag-icon">
+                                Қазақша
+                            </div>
+                        </div>
+                        <select id="language" class="hidden-select">
+                            <option value="ru">Русский</option>
+                            <option value="en">English</option>
+                            <option value="uz">O'zbek</option>
+                            <option value="uk">Українська</option>
+                            <option value="kz">Қазақша</option>
+                        </select>
+                    </div>
+                </div>
+                <button id="generate-btn" class="generate-btn-effect">Получить сигнал</button>
+                <a href="https://t.me/timatrading" target="_blank" class="telegram-btn">
+                    <svg class="telegram-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21.198 2.433a2.242 2.242 0 0 0-1.022.215l-16.5 7.6a2.24 2.24 0 0 0 .801 4.27l4.049.575 1.06 3.21a2.24 2.24 0 0 0 2.227 1.6 2.25 2.25 0 0 0 1.816-1.029l1.057-1.657 3.823 2.817a2.24 2.24 0 0 0 3.551-1.263l2.634-12.465a2.237 2.237 0 0 0-1.496-2.873z"></path>
+                        <line x1="8" y1="12" x2="12" y2="16"></line>
+                        <line x1="9" y1="16" x2="9.01" y2="16"></line>
+                    </svg>
+                    <span>Перейти в Telegram</span>
+                </a>
+            </div>
+        </div>
+        <div class="main-content">
+            <div class="signal-block">
+                <div class="signal-header">
+                    <div class="header-content">
+                        <span class="signal-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+                            </svg>
+                        </span>
+                        <h2 id="signal-title">Сигнал</h2>
+                    </div>
+                    <span id="signal-time" class="time-badge"></span>
+                </div>
+                <div id="signal-result" class="signal-result">
+                    <div class="signal-placeholder">
+                        Нажмите "Получить сигнал"
+                    </div>
+                </div>
+            </div>
+            <div class="chart-block">
+                <div class="chart-header">
+                    <div class="header-content">
+                        <span class="chart-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M3 3v18h18"></path>
+                                <path d="M18 9l-5 5-2-2-4 4"></path>
+                            </svg>
+                        </span>
+                        <h2 id="chart-title">Проанализированный график на валютную пару</h2>
+                    </div>
+                </div>
+                <div id="chart" class="chart"></div>
+            </div>
+            <div class="footer">
+                <p>© 2025 TradeOptionPro- Профессиональная торговая аналитика</p>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
